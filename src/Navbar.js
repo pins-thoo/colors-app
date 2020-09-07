@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import Slider from 'rc-slider';
-import Snackbar from '@material-ui/core/Snackbar';
-import CloseIcon from '@material-ui/icons/Close';
-import IconButton from '@material-ui/core/IconButton';
-import 'rc-slider/assets/index.css';
-import './Navbar.css';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import Slider from "rc-slider";
+import Snackbar from "@material-ui/core/Snackbar";
+import CloseIcon from "@material-ui/icons/Close";
+import IconButton from "@material-ui/core/IconButton";
+import "rc-slider/assets/index.css";
+import "./Navbar.css";
 
 class Navbar extends Component {
   constructor(props) {
@@ -28,14 +29,16 @@ class Navbar extends Component {
     return (
       <header className="Navbar">
         <div className="logo">
-          <a href='#'>reactcolorpicker</a>
+          <Link to="/">reactcolorpicker</Link>
         </div>
         <div className="slider-container">
           <span>Level: {level}</span>
           <div className="slider">
-            <Slider 
+            <Slider
               defaultValue={level}
-              min={100} max={900} step={100}
+              min={100}
+              max={900}
+              step={100}
               onAfterChange={changeLevel}
             />
           </div>
@@ -47,18 +50,28 @@ class Navbar extends Component {
             <MenuItem value="rgba">RGBA - rgb(255,255,255, 1.0)</MenuItem>
           </Select>
         </div>
-        <Snackbar anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           open={this.state.open}
           autoHideDuration={3000}
-          message={<span id="message-id">Format Changed to {format.toUpperCase()}</span>}
+          message={
+            <span id="message-id">
+              Format Changed to {format.toUpperCase()}
+            </span>
+          }
           ContentProps={{
-            "aria-describedby": "message-id"
+            "aria-describedby": "message-id",
           }}
           onClose={this.closeSnackBar}
           action={[
-            <IconButton onClick={this.closeSnackBar} color="inherit" key="close" aria-label="close">
+            <IconButton
+              onClick={this.closeSnackBar}
+              color="inherit"
+              key="close"
+              aria-label="close"
+            >
               <CloseIcon />
-            </IconButton>
+            </IconButton>,
           ]}
         />
       </header>

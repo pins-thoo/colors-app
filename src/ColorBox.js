@@ -3,13 +3,9 @@ import './ColorBox.css';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 class ColorBox extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { copied: false };
-    this.changeCopyState = this.changeCopyState.bind(this);
-  }
+  state = { copied: false };
 
-  changeCopyState() {
+  changeCopyState = () => {
     this.setState({ copied: true }, () => {
       setTimeout(() => this.setState({ copied: false }), 1500);
     });
