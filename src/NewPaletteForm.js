@@ -14,6 +14,7 @@ import Button from '@material-ui/core/Button';
 import DraggableBox from './DraggableBox';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { ChromePicker } from 'react-color';
+import { withRouter, useHistory } from 'react-router-dom';
 
 const drawerWidth = 400;
 
@@ -75,8 +76,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-export default function NewPaletteForm() {
+const NewPaletteForm = ({ savePalette }) => {
+  const history = useHistory();
   const classes = useStyles();
   // const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -108,6 +109,13 @@ export default function NewPaletteForm() {
     setNewName(event.target.value);
   }
 
+  const handleSubmit = () => {
+    let newName = "New Test Palette"
+    const newPalette = { paletteName: newName, id: newName.toLowerCase().replace(/ /g, "-"), colors: colors };
+    savePalette(newPalette);
+    history.push('/');
+  }
+
   useEffect(() => {
     ValidatorForm.addValidationRule('isColorNameUnique', (value) =>
       colors.every(
@@ -126,6 +134,7 @@ export default function NewPaletteForm() {
       <CssBaseline />
       <AppBar
         position="fixed"
+        color="default"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
@@ -143,6 +152,7 @@ export default function NewPaletteForm() {
           <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography>
+          <Button variant="contained" color="primary" onClick={handleSubmit}>Save Palette</Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -199,3 +209,5 @@ export default function NewPaletteForm() {
     </div>
   );
 }
+
+export default NewPaletteForm;
