@@ -7,9 +7,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import Button from '@material-ui/core/Button';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { Link } from 'react-router-dom';
 
 const drawerWidth = 400;
@@ -17,6 +16,9 @@ const drawerWidth = 400;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+  },
+  hide: {
+    display: 'none',
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -80,7 +82,7 @@ function PaletteFormNav({ open, palettes, handleSubmit, handleDrawerOpen }) {
             edge="start"
             className={clsx(classes.menuButton, open && classes.hide)}
           >
-            <MenuIcon />
+            <AddToPhotosIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
             Create A Palette
