@@ -103,12 +103,12 @@ const NewPaletteForm = ({ savePalette, palettes, maxColors = 20 }) => {
     setUserInput(userInput.newColorName = "");
   };
 
-  const handleSubmit = (newPaletteName) => {
-    // let newName = userInput.newPaletteName;
-    const newPalette = { paletteName: newPaletteName, id: newPaletteName.toLowerCase().replace(/ /g, "-"), colors: colors };
+  const handleSubmit = (newPalette) => {
+    newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g, "-")
+    newPalette.colors = colors;
     savePalette(newPalette);
     history.push('/');
-  }
+  };
 
   const removeColor = (colorName) => {
     const filteredColors = colors.filter(color => color.name !== colorName)
