@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/styles';
 import { SortableElement } from 'react-sortable-hoc';
 import DeleteIcon from '@material-ui/icons/Delete';
+import sizes from './styles/sizes';
 
 const styles = {
   root: {
@@ -15,7 +16,19 @@ const styles = {
     "&:hover svg": {
       color: "white",
       transform: "scale(1.3)"
-    }
+    },
+    [sizes.down("lg")]: {
+      width: "25%",
+      height: "20%"
+    },
+    [sizes.down("md")]: {
+      width: "50%",
+      height: "10%"
+    },
+    [sizes.down("sm")]: {
+      width: "100%",
+      height: "5%"
+    },
   },
   boxContent: {
     position: "absolute",

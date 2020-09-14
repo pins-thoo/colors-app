@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+import sizes from './styles/sizes';
 
 const drawerWidth = 400;
 
@@ -42,10 +43,17 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   navButtons: {
-    marginRight: "1rem"
+    marginRight: "1rem",
+    [sizes.down("xs")]: {
+      marginRight: "0.5rem"
+    },
   },
   button: {
     margin: "0 0.5rem",
+    [sizes.down("xs")]: {
+      margin: "0 0.2rem",
+      padding: "0.3rem"
+    },
   },
   link: {
     textDecoration: "none"
