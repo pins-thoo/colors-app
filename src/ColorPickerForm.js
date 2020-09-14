@@ -1,9 +1,26 @@
 import React, { useState, useReducer, useEffect } from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { ChromePicker } from 'react-color';
 
-function ColorPickerForm({ paletteIsFull, palettes, addNewColor, colors }) {
+const styles = {
+  picker: {
+    width: "100% !important",
+    marginTop: "2rem",
+  },
+  addColor: {
+    width: "100%",
+    padding: "6px 89px 7px",
+    fontSize: "2rem",
+  },
+  colorInput: {
+    width: "100%",
+    height: "75px",
+  }
+};
+
+function ColorPickerForm({ paletteIsFull, palettes, addNewColor, colors, classes }) {
   const [userInput, setUserInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
@@ -43,7 +60,7 @@ function ColorPickerForm({ paletteIsFull, palettes, addNewColor, colors }) {
   }, [colors, currentColor]);
   return (
     <>
-      <ChromePicker color={currentColor} onChangeComplete={updateColor} />
+      <ChromePicker color={currentColor} onChangeComplete={updateColor} className={classes.picker} />
       <ValidatorForm onSubmit={handleSubmit}>
         <TextValidator
           value={userInput.newColorName}
@@ -51,6 +68,10 @@ function ColorPickerForm({ paletteIsFull, palettes, addNewColor, colors }) {
           onChange={handleChange}
           validators={['required', 'isColorNameUnique', 'isColorUnique']}
           errorMessages={['Enter a color name', 'Color name must be unique', 'Color already used!']}
+          className={classes.colorInput}
+          variant="filled"
+          margin="normal"
+          placeholder="Color Name"
         />
         <Button
           variant="contained"
@@ -58,6 +79,7 @@ function ColorPickerForm({ paletteIsFull, palettes, addNewColor, colors }) {
           color="primary"
           disabled={paletteIsFull}
           style={{ backgroundColor: paletteIsFull ? "grey" : currentColor }}
+          className={classes.addColor}
         >
           {paletteIsFull ? "PALETTE FULL" : "Add Color"}
         </Button>
@@ -66,4 +88,4 @@ function ColorPickerForm({ paletteIsFull, palettes, addNewColor, colors }) {
   )
 }
 
-export default ColorPickerForm;
+export default withStyles(styles)(ColorPickerForm);

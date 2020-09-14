@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useReducer } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -19,23 +19,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
   hide: {
     display: 'none',
   },
@@ -45,6 +28,8 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    display: "flex",
+    alignItems: "center",
   },
   drawerHeader: {
     display: 'flex',
@@ -71,6 +56,20 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  container: {
+    width: "90%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttons: {
+    width: "100%",
+  },
+  button: {
+    width: "50%",
+  }
 }));
 
 const NewPaletteForm = ({ savePalette, palettes, maxColors = 20 }) => {
@@ -137,7 +136,6 @@ const NewPaletteForm = ({ savePalette, palettes, maxColors = 20 }) => {
   return (
     <div className={classes.root}>
       <PaletteFormNav
-        classes={classes}
         open={open}
         palettes={palettes}
         handleSubmit={handleSubmit}
@@ -158,22 +156,24 @@ const NewPaletteForm = ({ savePalette, palettes, maxColors = 20 }) => {
           </IconButton>
         </div>
         <Divider />
-        <Typography variant="h4">
-          Design Your Palette
+        <div className={classes.container}>
+          <Typography variant="h4" gutterBottom>
+            Design Your Palette
         </Typography>
-        <div>
-          <Button variant="contained" color="secondary" onClick={clearColors}>Clear Palette</Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={randomColor}
-            disabled={paletteIsFull}
-          >
-            Random Color
+          <div className={classes.buttons}>
+            <Button variant="contained" color="secondary" onClick={clearColors} className={classes.button}>Clear Palette</Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={randomColor}
+              disabled={paletteIsFull}
+              className={classes.button}
+            >
+              Random Color
           </Button>
+          </div>
+          <ColorPickerForm paletteIsFull={paletteIsFull} palettes={palettes} addNewColor={addNewColor} colors={colors} />
         </div>
-        <ColorPickerForm paletteIsFull={paletteIsFull} palettes={palettes} addNewColor={addNewColor} colors={colors} />
-
       </Drawer>
       <main
         className={clsx(classes.content, {
