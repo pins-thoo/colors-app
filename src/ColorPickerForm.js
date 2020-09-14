@@ -61,7 +61,7 @@ function ColorPickerForm({ paletteIsFull, palettes, addNewColor, colors, classes
   return (
     <>
       <ChromePicker color={currentColor} onChangeComplete={updateColor} className={classes.picker} />
-      <ValidatorForm onSubmit={handleSubmit}>
+      <ValidatorForm onSubmit={handleSubmit} instantValidate={false}>
         <TextValidator
           value={userInput.newColorName}
           name="newColorName"

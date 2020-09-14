@@ -12,6 +12,7 @@ import { arrayMove } from 'react-sortable-hoc';
 import DraggableColorList from './DraggableColorList';
 import { useHistory } from 'react-router-dom';
 import ColorPickerForm from './ColorPickerForm';
+import seedColors from './seedColors';
 
 const drawerWidth = 400;
 
@@ -78,7 +79,7 @@ const NewPaletteForm = ({ savePalette, palettes, maxColors = 20 }) => {
   const classes = useStyles();
   // const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const [colors, setColors] = useState(palettes[0].colors);
+  const [colors, setColors] = useState(seedColors[0].colors);
   const [userInput, setUserInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
@@ -127,8 +128,14 @@ const NewPaletteForm = ({ savePalette, palettes, maxColors = 20 }) => {
 
   const randomColor = () => {
     const allColors = palettes.map(p => p.colors).flat();
-    var rand = Math.floor(Math.random() * allColors.length);
-    const randomColor = allColors[rand];
+    let rand;
+    let randomColor;
+    let isDuplicateColor = true;
+    while (isDuplicateColor) {
+      rand = Math.floor(Math.random() * allColors.length);
+      randomColor = allColors[rand];
+      isDuplicateColor = colors.some(color => color.name === randomColor.name);
+    }
     setColors([...colors, randomColor]);
   }
 
@@ -182,7 +189,7 @@ const NewPaletteForm = ({ savePalette, palettes, maxColors = 20 }) => {
         })}
       >
         <div className={classes.drawerHeader} />
-        <DraggableColorList colors={colors} removeColor={removeColor} axis="xy" onSortEnd={onSortEnd} />
+        <DraggableColorList colors={colors} removeColor={removeColor} axis="xy" onSortEnd={onSortEnd} distance={20} />
       </main>
     </div>
   );
